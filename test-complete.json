@@ -1,0 +1,10 @@
+{
+  "query": "mutation CompleteChore($input: CompleteChoreInput!) { completeChore(input: $input) { id choreId completionDate necessityRating notes } }",
+  "variables": {
+    "input": {
+      "choreId": 1,
+      "necessityRating": 3,
+      "notes": "Test completion"
+    }
+  }
+}
