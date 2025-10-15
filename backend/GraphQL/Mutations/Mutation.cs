@@ -263,8 +263,9 @@ public class Mutation
                 break;
 
             case ChoreCategory.Weekly:
+                var weekInterval = chore.RecurrencePattern?.WeekInterval ?? 1;
                 var lastWeekStart = GetStartOfWeek(baseDate);
-                var nextWeekEnd = lastWeekStart.AddDays(13); // End of next week
+                var nextWeekEnd = lastWeekStart.AddDays((weekInterval * 7) - 1 + 7); // End of next interval period
                 while (nextWeekEnd < now)
                 {
                     // Stop recording skips after the end date
@@ -276,7 +277,7 @@ public class Mutation
                     {
                         missedDeadlines.Add(nextWeekEnd);
                     }
-                    nextWeekEnd = nextWeekEnd.AddDays(7);
+                    nextWeekEnd = nextWeekEnd.AddDays(weekInterval * 7);
                 }
                 break;
 
@@ -337,10 +338,12 @@ public class Mutation
 
     private DateTime? CalculateNextMonthlyDeadline(DateTime baseDate, RecurrencePattern? pattern)
     {
+        var monthInterval = pattern?.MonthInterval ?? 1;
+
         if (pattern?.DayOfMonth.HasValue == true)
         {
             var currentMonth = baseDate.Year * 12 + baseDate.Month;
-            var nextMonth = currentMonth + 1;
+            var nextMonth = currentMonth + monthInterval;
             var nextYear = nextMonth / 12;
             var nextMonthNum = nextMonth % 12;
             if (nextMonthNum == 0)
@@ -355,7 +358,7 @@ public class Mutation
         }
 
         var lastCompletionMonth = baseDate.Year * 12 + baseDate.Month;
-        var nextMonthValue = lastCompletionMonth + 1;
+        var nextMonthValue = lastCompletionMonth + monthInterval;
         var yearForNext = nextMonthValue / 12;
         var monthForNext = nextMonthValue % 12;
         if (monthForNext == 0)
