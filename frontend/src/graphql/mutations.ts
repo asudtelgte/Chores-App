@@ -34,7 +34,9 @@ export const CREATE_CHORE = gql`
       category
       recurrencePattern {
         dayInterval
+        weekInterval
         daysOfWeek
+        monthInterval
         dayOfMonth
         relativePattern
         endDate
@@ -56,7 +58,9 @@ export const UPDATE_CHORE = gql`
       category
       recurrencePattern {
         dayInterval
+        weekInterval
         daysOfWeek
+        monthInterval
         dayOfMonth
         relativePattern
         endDate

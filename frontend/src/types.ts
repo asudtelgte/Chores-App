@@ -7,9 +7,12 @@ export enum ChoreCategory {
 
 export interface RecurrencePattern {
   dayInterval?: number;
+  weekInterval?: number;
   daysOfWeek?: string[];
+  monthInterval?: number;
   dayOfMonth?: number;
   relativePattern?: string;
+  endDate?: string;
 }
 
 // Forward declare to avoid circular reference issues
